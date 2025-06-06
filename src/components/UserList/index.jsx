@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { List, ListItem, ListItemText, Divider } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import './styles.css';
+import React, { useEffect, useState } from "react";
+import { List, ListItem, ListItemText, Divider } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import "./styles.css";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -13,12 +13,15 @@ const UserList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:8081/api/user/list', {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
+        const response = await fetch(
+          "https://cf9gwl-8081.csb.app/api/user/list",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
-        });
+        );
         if (response.ok) {
           const data = await response.json();
           setUsers(data);
@@ -26,14 +29,13 @@ const UserList = () => {
           return;
         }
       } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error("Error fetching users:", error);
         setMessage(error);
       }
     };
 
     fetchUsers();
   }, []);
-
 
   return (
     <div className="user-list-container">
@@ -45,7 +47,10 @@ const UserList = () => {
               to={`/users/${item._id}`}
               className="user-list-item"
             >
-              <ListItemText primary={`${item.last_name}`} className="user-list-text" />
+              <ListItemText
+                primary={`${item.last_name}`}
+                className="user-list-text"
+              />
             </ListItem>
             <Divider className="user-list-divider" />
           </div>

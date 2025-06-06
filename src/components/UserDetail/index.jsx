@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
-import './styles.css';
+import "./styles.css";
 
 function UserDetail() {
   const { userId } = useParams();
@@ -14,12 +14,15 @@ function UserDetail() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:8081/api/user/${userId}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
+        const response = await fetch(
+          `https://cf9gwl-8081.csb.app/api/user/${userId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
-        });
+        );
         if (response.ok) {
           const data = await response.json();
           setUser(data);
@@ -27,7 +30,7 @@ function UserDetail() {
           return;
         }
       } catch (error) {
-        console.error('Error fetching user:', error);
+        console.error("Error fetching user:", error);
         setMessage(error);
       }
     };
@@ -35,13 +38,11 @@ function UserDetail() {
     fetchUser();
   }, [userId]);
 
-   return (
+  return (
     <div>
       {user ? (
         <>
-          <Typography variant="h5">
-            User Details
-          </Typography>
+          <Typography variant="h5">User Details</Typography>
           <Typography variant="body1">
             <strong>Name:</strong> {user.last_name}
           </Typography>
@@ -54,14 +55,10 @@ function UserDetail() {
           <Typography variant="body1">
             <strong>Occupation:</strong> {user.occupation}
           </Typography>
-          <Link to={`/photos/${user._id}`}>
-            View Photos
-          </Link>
+          <Link to={`/photos/${user._id}`}>View Photos</Link>
         </>
       ) : (
-        <Typography variant="body1">
-          User not found!
-        </Typography>
+        <Typography variant="body1">User not found!</Typography>
       )}
     </div>
   );

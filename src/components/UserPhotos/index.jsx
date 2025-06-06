@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Typography, Divider } from "@mui/material";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import './styles.css';
+import "./styles.css";
 
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleString();
@@ -18,12 +18,15 @@ function UserPhotos() {
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
-        const photoResponse = await fetch(`http://localhost:8081/api/photo/photosOfUser/${userId}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
+        const photoResponse = await fetch(
+          `https://cf9gwl-8081.csb.app/api/photo/photosOfUser/${userId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
-        });
+        );
         if (!photoResponse.ok) {
           return;
         }
@@ -36,13 +39,16 @@ function UserPhotos() {
 
     const fetchUser = async () => {
       try {
-        const userResponse = await fetch(`http://localhost:8081/api/user/${userId}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
+        const userResponse = await fetch(
+          `https://cf9gwl-8081.csb.app/api/user/${userId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
-        });
-        if (!userResponse.ok){
+        );
+        if (!userResponse.ok) {
           return;
         }
         const user = await userResponse.json();
@@ -55,8 +61,6 @@ function UserPhotos() {
     fetchUser();
     fetchPhotos();
   }, [userId]);
-
-  
 
   return (
     <div>
