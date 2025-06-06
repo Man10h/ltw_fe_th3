@@ -18,20 +18,13 @@ function UserDetail() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
           }
         });
         if (response.ok) {
           const data = await response.json();
           setUser(data);
         } else {
-          if(response.status === 401 || response.status === 403){
-            nav("/login");
-          }
-          else {
-            const data = await response.json();
-            setMessage(data.message);
-          }
+          return;
         }
       } catch (error) {
         console.error('Error fetching user:', error);
@@ -43,30 +36,30 @@ function UserDetail() {
   }, [userId]);
 
    return (
-    <div className="user-detail-container">
+    <div>
       {user ? (
         <>
-          <Typography variant="h5" className="user-detail-title">
+          <Typography variant="h5">
             User Details
           </Typography>
-          <Typography variant="body1" className="user-detail-field">
+          <Typography variant="body1">
             <strong>Name:</strong> {user.last_name}
           </Typography>
-          <Typography variant="body1" className="user-detail-field">
+          <Typography variant="body1">
             <strong>Location:</strong> {user.location}
           </Typography>
-          <Typography variant="body1" className="user-detail-field">
+          <Typography variant="body1">
             <strong>Description:</strong> {user.description}
           </Typography>
-          <Typography variant="body1" className="user-detail-field">
+          <Typography variant="body1">
             <strong>Occupation:</strong> {user.occupation}
           </Typography>
-          <Link to={`/photos/${user._id}`} className="user-detail-link">
+          <Link to={`/photos/${user._id}`}>
             View Photos
           </Link>
         </>
       ) : (
-        <Typography variant="body1" className="user-detail-not-found">
+        <Typography variant="body1">
           User not found!
         </Typography>
       )}

@@ -17,20 +17,13 @@ const UserList = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
           }
         });
         if (response.ok) {
           const data = await response.json();
           setUsers(data);
         } else {
-          if(response.status === 401 || response.status === 403){
-            nav("/login");
-          }
-          else {
-            const data = await response.json();
-            setMessage(data.message);
-          }
+          return;
         }
       } catch (error) {
         console.error('Error fetching users:', error);
